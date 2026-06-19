@@ -1,19 +1,45 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
 import pinia from '@/stores'
 import { useAuthStore } from '@/stores/auth'
 import { tokenStorage } from '@/utils/tokenStorage'
-import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('@/views/HomeView.vue'),
+      component: () => import('@/layouts/AppLayout.vue'),
       meta: {
         requiresAuth: true,
-        title: 'Home',
       },
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import('@/views/HomeView.vue'),
+          meta: {
+            title: 'Home',
+          },
+        },
+        {
+          path: 'rooms',
+          name: 'rooms',
+          component: () => import('@/views/rooms/RoomsView.vue'),
+          meta: {
+            title: 'Rooms',
+          },
+        },
+        {
+          path: 'rooms/:slug',
+          name: 'room-detail',
+          component: () => import('@/views/rooms/RoomDetailView.vue'),
+          meta: {
+            title: 'Room Detail',
+          },
+        },
+      ],
     },
     {
       path: '/login',
