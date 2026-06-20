@@ -3,8 +3,7 @@ export interface HomeHeroProps {
   greeting: string
 }
 
-export interface UpcomingBookingItem {
-  id: number
+export interface UpNextCardProps {
   title: string
   date: string
   time: string
@@ -12,10 +11,7 @@ export interface UpcomingBookingItem {
   floor: string
 }
 
-export type UpNextCardProps = Omit<UpcomingBookingItem, 'id'>
-
-export interface RecommendedRoomItem {
-  id: number
+export interface RoomCardProps {
   slug: string
   image: string | null
   name: string
@@ -23,5 +19,3 @@ export interface RecommendedRoomItem {
   capacity: string
   facilities: string
 }
-
-export type RoomCardProps = Omit<RecommendedRoomItem, 'id'>

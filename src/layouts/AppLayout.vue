@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import MobileNavbar from '@/components/layout/MobileNavbar.vue'
+import AppNavbar from '@/components/layout/AppNavbar.vue'
 </script>
 
 <template>
   <main class="min-h-svh bg-indigo-50">
-    <MobileNavbar />
+    <AppNavbar />
 
     <RouterView />
   </main>
