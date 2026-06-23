@@ -5,7 +5,8 @@ import AppNavbar from '@/components/layout/AppNavbar.vue'
 <template>
   <main class="min-h-svh bg-indigo-50">
     <AppNavbar />
-
-    <RouterView />
+    <div class="md:pt-18">
+      <RouterView />
+    </div>
   </main>
 </template>

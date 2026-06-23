@@ -3,7 +3,7 @@ import { Bars3Icon, BellIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
 </script>
 
 <template>
-  <header class="bg-white">
+  <header class="bg-white shadow-xs md:fixed md:top-0 md:left-0 md:z-50 md:w-full">
     <div
       class="grid h-12 grid-cols-4 items-center gap-x-5 px-4 md:h-18 md:grid-cols-12 md:gap-x-6 md:px-16"
     >
