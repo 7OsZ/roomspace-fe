@@ -1,7 +1,7 @@
 export interface Facility {
   id: number
   name: string
-  icon: string | null
+  icon?: string | null
 }
 
 export interface Room {
