@@ -32,6 +32,17 @@ export interface NextBooking {
   room: BookingRoom
 }
 
+export type Booking = NextBooking
+
+export interface CreateBookingPayload {
+  room_id: number
+  title: string
+  description: string | null
+  participant_count: number
+  start_datetime: string
+  end_datetime: string
+}
+
 export interface BookingSummary {
   upcoming_count: number
   cancelled_count: number

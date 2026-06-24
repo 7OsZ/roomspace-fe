@@ -86,11 +86,26 @@ function goBack() {
 }
 
 function handleContinueBooking() {
-  if (!hasCompleteBookingSelection.value) {
+  if (
+    !hasCompleteBookingSelection.value ||
+    !selectedDate.value ||
+    !selectedStartSlot.value ||
+    !selectedEndSlot.value
+  ) {
     return
   }
 
-  // Modal fulfillment + summary will be implemented in the next step.
+  router.push({
+    name: 'booking-confirmation',
+    params: {
+      slug: roomSlug.value,
+    },
+    query: {
+      date: selectedDate.value.date,
+      start_datetime: selectedStartSlot.value.datetime,
+      end_datetime: selectedEndSlot.value.datetime,
+    },
+  })
 }
 
 onMounted(() => {

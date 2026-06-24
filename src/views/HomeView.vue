@@ -21,13 +21,31 @@ import { getRoomFacilitiesText, getRoomImageUrl } from '@/utils/roomFormatter'
 const authStore = useAuthStore()
 
 const rooms = ref<Room[]>([])
-const nextBooking = ref<NextBooking | null>(null)
+const bookings = ref<NextBooking[]>([])
 
 const isLoadingHomepage = ref(true)
 const homepageError = ref('')
 
 const recommendedRooms = computed(() => {
   return rooms.value.slice(0, 3)
+})
+
+const upNextBookings = computed(() => {
+  const now = new Date()
+
+  return bookings.value
+    .filter((booking) => {
+      const startDate = parseDateTime(booking.start_datetime)
+
+      return booking.status === 'approved' && startDate !== null && startDate >= now
+    })
+    .sort((a, b) => {
+      const firstStartDate = parseDateTime(a.start_datetime)
+      const secondStartDate = parseDateTime(b.start_datetime)
+
+      return (firstStartDate?.getTime() ?? 0) - (secondStartDate?.getTime() ?? 0)
+    })
+    .slice(0, 2)
 })
 
 const firstName = computed(() => {
@@ -38,17 +56,28 @@ const greeting = computed(() => {
   return getGreetingByCurrentTime()
 })
 
+function parseDateTime(value: string): Date | null {
+  const normalizedValue = value.includes('T') ? value : value.replace(' ', 'T')
+  const date = new Date(normalizedValue)
+
+  if (Number.isNaN(date.getTime())) {
+    return null
+  }
+
+  return date
+}
+
 async function fetchHomepageData() {
   isLoadingHomepage.value = true
   homepageError.value = ''
 
   try {
-    const [summary, roomList] = await Promise.all([
-      bookingService.getSummary(),
+    const [bookingList, roomList] = await Promise.all([
+      bookingService.getBookings(),
       roomService.getRooms(),
     ])
 
-    nextBooking.value = summary.next_booking
+    bookings.value = bookingList
     rooms.value = roomList
   } catch (error) {
     console.error('Failed to fetch homepage data:', error)
@@ -110,16 +139,18 @@ onMounted(() => {
           </div>
 
           <div
-            v-else-if="nextBooking"
+            v-else-if="upNextBookings.length"
             class="mt-4 grid grid-cols-4 gap-x-5 gap-y-4 md:mt-5 md:grid-cols-12 md:gap-x-6"
           >
             <UpNextCard
+              v-for="booking in upNextBookings"
+              :key="booking.id"
               class="col-span-4 md:col-span-4"
-              :title="nextBooking.title"
-              :date="formatReadableDate(nextBooking.start_datetime)"
-              :time="formatTimeRange(nextBooking.start_datetime, nextBooking.end_datetime)"
-              :room="nextBooking.room?.name ?? '-'"
-              :floor="nextBooking.room?.location ?? '-'"
+              :title="booking.title"
+              :date="formatReadableDate(booking.start_datetime)"
+              :time="formatTimeRange(booking.start_datetime, booking.end_datetime)"
+              :room="booking.room?.name ?? '-'"
+              :floor="booking.room?.location ?? '-'"
             />
           </div>
 

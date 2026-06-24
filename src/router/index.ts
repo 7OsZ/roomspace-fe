@@ -39,8 +39,17 @@ const router = createRouter({
             title: 'Room Detail',
           },
         },
+        {
+          path: '/rooms/:slug/booking/confirm',
+          name: 'booking-confirmation',
+          component: () => import('@/views/bookings/BookingConfirmationView.vue'),
+          meta: {
+            title: 'Confirm Booking',
+          },
+        },
       ],
     },
+
     {
       path: '/login',
       name: 'login',
