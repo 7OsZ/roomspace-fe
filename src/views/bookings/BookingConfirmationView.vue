@@ -203,7 +203,7 @@ async function handleConfirmBooking() {
   isSubmittingBooking.value = true
 
   try {
-    await bookingService.createBooking({
+    const booking = await bookingService.createBooking({
       room_id: room.value.id,
       title: meetingTitle.value.trim(),
       description: description.value.trim() || null,
@@ -212,7 +212,19 @@ async function handleConfirmBooking() {
       end_datetime: endDatetime.value,
     })
 
-    router.push({ name: 'home' })
+    router.push({
+      name: 'booking-success',
+      query: {
+        booking_number: booking.booking_number,
+        title: booking.title,
+        room: booking.room.name,
+        location: booking.room.location,
+        start_datetime: booking.start_datetime,
+        end_datetime: booking.end_datetime,
+        participant_count: String(booking.participant_count),
+        duration: `${booking.duration_in_hours} ${booking.duration_in_hours === 1 ? 'Hour' : 'Hours'}`,
+      },
+    })
   } catch (error) {
     console.error('Failed to create booking:', error)
     submitError.value = getApiErrorMessage(error)

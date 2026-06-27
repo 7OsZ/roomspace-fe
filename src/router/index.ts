@@ -47,6 +47,23 @@ const router = createRouter({
             title: 'Confirm Booking',
           },
         },
+
+        {
+          path: 'bookings/success',
+          name: 'booking-success',
+          component: () => import('@/views/bookings/BookingSuccessView.vue'),
+          meta: {
+            title: 'Booking Success',
+          },
+        },
+        {
+          path: 'bookings',
+          name: 'my-bookings',
+          component: () => import('@/views/bookings/MyBookingsview.vue'),
+          meta: {
+            title: 'My Bookings',
+          },
+        },
       ],
     },
 

@@ -32,12 +32,13 @@ import { Bars3Icon, BellIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
           </span>
         </RouterLink>
 
-        <button
-          type="button"
-          class="text-sm font-medium text-slate-500 transition hover:text-indigo-800"
+        <RouterLink
+          :to="{ name: 'my-bookings' }"
+          class="text-sm font-medium transition hover:text-indigo-800"
+          :class="$route.name === 'my-bookings' ? 'text-indigo-700' : 'text-slate-500'"
         >
           My Bookings
-        </button>
+        </RouterLink>
       </nav>
 
       <div
