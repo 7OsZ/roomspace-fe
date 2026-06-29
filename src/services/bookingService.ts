@@ -29,4 +29,17 @@ export const bookingService = {
 
     return response.data.data
   },
+  async getBookingById(id: number): Promise<Booking> {
+    const response = await api.get<ApiResponse<Booking>>(`/employee/bookings/${id}`)
+
+    return response.data.data
+  },
+
+  async cancelBooking(id: number, reason?: string): Promise<Booking> {
+    const response = await api.patch<ApiResponse<Booking>>(`/employee/bookings/${id}/cancel`, {
+      reasong: reason || null,
+    })
+
+    return response.data.data
+  },
 }

@@ -10,14 +10,26 @@ import {
 import BookingStatusBadge from '@/components/bookings/BookingStatusBadge.vue'
 import type { Booking } from '@/types/booking'
 import { formatReadableDate, formatTimeRange } from '@/utils/dateFormatter'
+import { useRouter } from 'vue-router'
 
-defineProps<{
+const props = defineProps<{
   booking: Booking
 }>()
+
+const router = useRouter()
+
+function goToDetail() {
+  router.push({ name: 'booking-detail', params: { id: props.booking.id } })
+}
 </script>
 
 <template>
-  <article class="rounded bg-white px-4 py-4 shadow-xs">
+  <article
+    class="cursor-pointer rounded bg-white px-4 py-4 shadow-xs transition hover:shadow-md"
+    role="button"
+    :aria-label="`View booking ${booking.booking_number}`"
+    @click="goToDetail"
+  >
     <div class="flex items-start justify-between gap-4">
       <div class="min-w-0">
         <h2 class="truncate text-base leading-6 font-semibold text-slate-900">

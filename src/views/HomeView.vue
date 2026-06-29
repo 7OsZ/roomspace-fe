@@ -146,6 +146,7 @@ onMounted(() => {
               v-for="booking in upNextBookings"
               :key="booking.id"
               class="col-span-4 md:col-span-4"
+              :id="booking.id"
               :title="booking.title"
               :date="formatReadableDate(booking.start_datetime)"
               :time="formatTimeRange(booking.start_datetime, booking.end_datetime)"

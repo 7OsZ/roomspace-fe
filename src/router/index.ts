@@ -59,9 +59,18 @@ const router = createRouter({
         {
           path: 'bookings',
           name: 'my-bookings',
-          component: () => import('@/views/bookings/MyBookingsview.vue'),
+          component: () => import('@/views/bookings/MyBookingsView.vue'),
           meta: {
             title: 'My Bookings',
+          },
+        },
+
+        {
+          path: 'bookings/:id',
+          name: 'booking-detail',
+          component: () => import('@/views/bookings/BookingDetailView.vue'),
+          meta: {
+            title: 'Booking Detail',
           },
         },
       ],

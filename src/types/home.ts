@@ -4,6 +4,7 @@ export interface HomeHeroProps {
 }
 
 export interface UpNextCardProps {
+  id: number
   title: string
   date: string
   time: string
