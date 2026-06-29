@@ -1,5 +1,20 @@
 <script setup lang="ts">
 import { Bars3Icon, BellIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
+import { useRouter } from 'vue-router'
+
+import AppDrawer from '@/components/layout/AppDrawer.vue'
+import { useAppDrawer } from '@/composable/layout/useAppDrawer'
+
+const router = useRouter()
+const { isOpen, open, close } = useAppDrawer()
+
+function goToNotifications() {
+  router.push({ name: 'notifications' })
+}
+
+function goToAccount() {
+  router.push({ name: 'account' })
+}
 </script>
 
 <template>
@@ -42,20 +57,36 @@ import { Bars3Icon, BellIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
       </nav>
 
       <div
-        class="col-span-2 flex items-center justify-end gap-6 text-slate-600 md:col-start-12 md:col-span-1"
+        class="col-span-2 flex items-center justify-end gap-6 text-slate-600 md:col-span-1 md:col-start-12"
       >
-        <button type="button" aria-label="Open notifications">
+        <button
+          type="button"
+          aria-label="Open notifications"
+          class="transition hover:text-indigo-700"
+          @click="goToNotifications"
+        >
           <BellIcon class="size-5 md:size-6" />
         </button>
 
-        <button type="button" aria-label="Open profile" class="hidden md:block">
+        <button
+          type="button"
+          aria-label="Open profile"
+          class="hidden transition hover:text-indigo-700 md:block"
+          @click="goToAccount"
+        >
           <UserCircleIcon class="size-7 text-slate-900" />
         </button>
 
-        <button type="button" aria-label="Open menu" class="md:hidden">
+        <button
+          type="button"
+          aria-label="Open menu"
+          class="transition hover:text-indigo-700 md:hidden"
+          @click="open"
+        >
           <Bars3Icon class="size-5" />
         </button>
       </div>
     </div>
+    <AppDrawer :is-open="isOpen" @close="close" />
   </header>
 </template>

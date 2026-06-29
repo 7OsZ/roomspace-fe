@@ -10,9 +10,9 @@ export const authService = {
   },
 
   async getCurrentUser(): Promise<User> {
-    const response = await api.get<ApiResponse<User>>('/me')
+    const response = await api.get<ApiResponse<{ user: User }>>('/me')
 
-    return response.data.data
+    return response.data.data.user
   },
 
   async logout(): Promise<void> {

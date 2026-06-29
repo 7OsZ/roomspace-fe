@@ -73,6 +73,22 @@ const router = createRouter({
             title: 'Booking Detail',
           },
         },
+        {
+          path: 'notifications',
+          name: 'notifications',
+          component: () => import('@/views/NotificationsView.vue'),
+          meta: {
+            title: 'Notifications',
+          },
+        },
+        {
+          path: 'account',
+          name: 'account',
+          component: () => import('@/views/AccountView.vue'),
+          meta: {
+            title: 'Account',
+          },
+        },
       ],
     },
 
