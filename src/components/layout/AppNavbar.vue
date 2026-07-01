@@ -4,9 +4,11 @@ import { useRouter } from 'vue-router'
 
 import AppDrawer from '@/components/layout/AppDrawer.vue'
 import { useAppDrawer } from '@/composable/layout/useAppDrawer'
+import { useNotificationStore } from '@/stores/notification'
 
 const router = useRouter()
 const { isOpen, open, close } = useAppDrawer()
+const notificationStore = useNotificationStore()
 
 function goToNotifications() {
   router.push({ name: 'notifications' })
@@ -62,10 +64,14 @@ function goToAccount() {
         <button
           type="button"
           aria-label="Open notifications"
-          class="transition hover:text-indigo-700"
+          class="relative transition hover:text-indigo-700"
           @click="goToNotifications"
         >
           <BellIcon class="size-5 md:size-6" />
+          <span
+            v-if="notificationStore.unreadCount > 0"
+            class="absolute -top-0.5 -right-0.5 flex size-2 items-center justify-center rounded-full bg-red-500"
+          />
         </button>
 
         <button

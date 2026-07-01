@@ -64,7 +64,7 @@ onMounted(() => {
   <div class="pb-12">
     <section class="grid grid-cols-4 gap-x-5 px-4 pt-7 md:grid-cols-12 md:gap-x-6 md:px-16 md:pt-8">
       <div class="col-span-4 md:col-span-8">
-        <h1 class="text-3xl leading-10 font-bold text-slate-900 md:text-4xl md:leading-11">
+        <h1 class="text-3xl leading-10 font-semibold text-slate-900 md:text-4xl md:leading-11">
           My Bookings
         </h1>
 
